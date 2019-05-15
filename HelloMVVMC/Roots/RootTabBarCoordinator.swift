@@ -10,11 +10,12 @@ import UIKit
 
 class RootTabBarCoordinator: Coordinator<UITabBarController>, CoordinatingDependency {
 
-    let tabBarViewcontroller = UITabBarController()
+    //let tabBarViewcontroller = UITabBarController()
 
     var dependency: AppDependency?
 
     private var tabBarDelegateProxy = TabBarDelegateProxy()
+    private var navigationDelegateProxy = NavigationDelegateProxy()
     private var selectedCoordinator: Coordinating?
 
     override func start() {
@@ -55,6 +56,8 @@ class RootTabBarCoordinator: Coordinator<UITabBarController>, CoordinatingDepend
     private final func generateNavigationController(tabBarItem: UITabBarItem) -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = tabBarItem
+        navigationController.interactivePopGestureRecognizer?.delegate = navigationDelegateProxy
+        navigationController.delegate = navigationDelegateProxy
 
         return navigationController
     }

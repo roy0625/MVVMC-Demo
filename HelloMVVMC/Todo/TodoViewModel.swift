@@ -15,7 +15,7 @@ protocol TodoViewModelDelegate: class {
 class TodoViewModel {
 
     var fileDataManager: FileDataManagerSyncActions
-    var data: TodoListModel = TodoListModel()
+    private var data: TodoListModel = TodoListModel()
 
     weak var delegate: TodoViewModelDelegate?
     
@@ -28,8 +28,27 @@ class TodoViewModel {
         fileDataManager.writeDataToFile(todos: data)
         updateData()
     }
+}
 
-    // MARK: - public function
+extension TodoViewModel {
+    // MARK: - for tableView
+    func numberOfItems(_ section: Int) -> Int {
+        if section == TodoSection.done.rawValue {
+            return data.done.count
+        } else {
+            return data.todo.count
+        }
+    }
+
+    func todoItem(section: Int, row: Int) -> TodoModel {
+        if section == TodoSection.todo.rawValue {
+            return data.todo[row]
+        } else {
+            return data.done[row]
+        }
+    }
+
+    // MARK: - manipulate data
     func updateData() {
         data = fileDataManager.getDataFromFile()
 

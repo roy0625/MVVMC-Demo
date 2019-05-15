@@ -12,7 +12,7 @@ struct DetailViewModel {
 
     var fileDataManager: FileDataManagerSyncActions
 
-    var todoModel: TodoModel
+    private var todoModel: TodoModel
     var indexPath: IndexPath
 
     init(todoModel: TodoModel, indexPath: IndexPath, fileDataManager: FileDataManagerSyncActions) {
@@ -40,5 +40,23 @@ struct DetailViewModel {
             }
         }
         fileDataManager.writeDataToFile(todos: data)
+    }
+}
+
+extension DetailViewModel {
+    func time() -> String {
+        return String(format: "%ld miuntes", todoModel.time)
+    }
+
+    func name() -> String {
+        return todoModel.name
+    }
+
+    func isDone() -> Bool {
+        return todoModel.isDone
+    }
+
+    mutating func changeDoneStatus(_ isDone: Bool) {
+        todoModel.isDone = isDone
     }
 }

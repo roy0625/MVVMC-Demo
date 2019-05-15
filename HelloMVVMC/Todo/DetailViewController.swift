@@ -68,9 +68,9 @@ class DetailViewController: UIViewController {
             make.top.equalTo(timeLabel.snp.bottom).offset(margin)
         }
 
-        titleLabel.text = viewModel.todoModel.name
-        timeLabel.text = String(format: "%ld miuntes", viewModel.todoModel.time)
-        doneSwitch.isOn = viewModel.todoModel.isDone
+        titleLabel.text = viewModel.name()
+        timeLabel.text = viewModel.time()
+        doneSwitch.isOn = viewModel.isDone()
 
         doneSwitch.addTarget(self, action: #selector(clickDoneSwitch(sender:)) , for: .valueChanged)
     }
@@ -87,6 +87,6 @@ class DetailViewController: UIViewController {
     }
 
     @objc func clickDoneSwitch(sender: UISwitch) {
-        viewModel.todoModel.isDone = sender.isOn
+        viewModel.changeDoneStatus(sender.isOn)
     }
 }

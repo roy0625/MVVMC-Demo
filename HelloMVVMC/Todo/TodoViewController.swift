@@ -122,35 +122,21 @@ extension TodoViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == TodoSection.todo.rawValue {
-            return viewModel.data.todo.count
-        } else {
-            return viewModel.data.done.count
-        }
+        return viewModel.numberOfItems(section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        if indexPath.section == TodoSection.todo.rawValue {
-            let item = viewModel.data.todo[indexPath.row]
-            cell.textLabel?.text = item.name
-        } else {
-            let item = viewModel.data.done[indexPath.row]
-            cell.textLabel?.text = item.name
-        }
-
+        let item = viewModel.todoItem(section: indexPath.section, row: indexPath.row)
+        cell.textLabel?.text = item.name
         return cell
     }
 }
 
 extension TodoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == TodoSection.todo.rawValue {
-            self.delegate?.todoClickTableViewCell(viewController: self, item: viewModel.data.todo[indexPath.row], indexPath: indexPath)
-        } else {
-            self.delegate?.todoClickTableViewCell(viewController: self, item: viewModel.data.done[indexPath.row], indexPath: indexPath)
-        }
+        let item = viewModel.todoItem(section: indexPath.section, row: indexPath.row)
+        self.delegate?.todoClickTableViewCell(viewController: self, item: item, indexPath: indexPath)
     }
 
     // for edit

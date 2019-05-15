@@ -129,4 +129,8 @@ extension Coordinator where T: UINavigationController {
         let destinationVC = rootViewController.viewControllers[index]
         _ = rootViewController.popToViewController(destinationVC, animated: true)
     }
+
+    final func pop() {
+        rootViewController.popViewController(animated: true)
+    }
 }

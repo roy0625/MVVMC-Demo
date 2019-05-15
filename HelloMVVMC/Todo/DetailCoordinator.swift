@@ -32,6 +32,6 @@ class DetailCoordinator: Coordinator<UINavigationController> {
 
 extension DetailCoordinator: DetailViewControllerProtocol {
     func clickSave(viewController: UIViewController) {
-        pop(to: self.parent ?? TabTodoCoordinator(viewController: viewController as! UINavigationController))
+        pop()
     }
 }

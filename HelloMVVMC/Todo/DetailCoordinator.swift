@@ -19,7 +19,7 @@ class DetailCoordinator: Coordinator<UINavigationController> {
             let fileDataManager = dependency?.fileDataManager
         else { return }
 
-        let detailViewModel = DetailViewModel(todoModel: todoModel ?? TodoModel(name: "", isDone: false, time: 0), indexPath: indexPath ?? IndexPath(row: 0, section: 0), fileDataManager: fileDataManager)
+        let detailViewModel = DetailViewModel(todoModel: todoModel!, indexPath: indexPath!, fileDataManager: fileDataManager)
         let vc = DetailViewController(viewModel: detailViewModel)
         vc.coordinator = self
         vc.delegate = self
